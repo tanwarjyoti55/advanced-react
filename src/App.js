@@ -18,14 +18,23 @@ const StepTwo = ({goNext})=>{
   return(
     <>
     <h1>Step #2: Enter your age:</h1>
-    <button onClick={()=> goNext({age: 22})}>Next</button>
+    <button onClick={()=> goNext({age: 26})}>Next</button>
     </>
   )
 };
 const StepThree = ({goNext})=> {
   return(
     <>
-    <h1>Step #3: Enter your country:</h1>
+    <h1>Congratulations!!</h1>
+    <button onClick={()=> goNext({})}>Next</button>
+    </>
+  )
+};
+
+const StepFourth = ({goNext})=> {
+  return(
+    <>
+    <h1>Step #4: Enter your country:</h1>
     <button onClick={()=> goNext({country: 'India'})}>Next</button>
     </>
   )
@@ -76,7 +85,8 @@ function App() {
   >
       <StepOne />
       <StepTwo />
-      <StepThree />
+      {data.age > 25 && <StepThree/>}
+      <StepFourth />
     </ControlledFlow>
 
     </>
