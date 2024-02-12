@@ -61,7 +61,7 @@ let books = [
     price: 7.99,
   },
 ];
-
+app.get("/", (req, res) => res.json(currentUser));
 app.get("/current-user", (req, res) => res.json(currentUser));
 
 app.get("/users/:id", (req, res) => {
