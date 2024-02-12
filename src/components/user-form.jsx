@@ -1,6 +1,8 @@
+import { includeUpdatableResource } from "./include-updatable-resource";
 import { includeUpdatableUser } from "./include-updatable-user";
 
-export const UserInfoFrom = includeUpdatableUser(
+// export const UserInfoFrom = includeUpdatableUser(
+  export const UserInfoFrom = includeUpdatableResource(
   ({ user, onChangeUser, onPostUser, onResetUser }) => {
     const { name, age } = user || {};
 
@@ -28,5 +30,6 @@ export const UserInfoFrom = includeUpdatableUser(
       <h3>Loading....</h3>
     );
   },
-  "3"
+  // "3"
+  '/users/2','user'
 );

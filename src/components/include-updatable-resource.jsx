@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-export const includeUpdatableUser = (Component, resourceUrl, resourceName) => {
+const toCapital = str => str.charAt(0).toUpperCase() + str.slice(1);
+
+export const includeUpdatableResource = (Component, resourceUrl, resourceName) => {
   return (props) => {
     const [initialResource, setInitialResource] = useState(null);
     const [resource, setResource] = useState(null);
@@ -29,13 +31,17 @@ export const includeUpdatableUser = (Component, resourceUrl, resourceName) => {
       setResource(initialResource);
     };
 
+    const resourceProps={
+      [resourceName]: resource,
+      [`onChange${toCapital(resourceName)}`] : onChange,
+      [`onPost${toCapital(resourceName)}`] : onPost,
+      [`onReset${toCapital(resourceName)}`] : onReset,
+    }
+
     return (
       <Component
         {...props}
-        user={user}
-        onChange={onChange}
-        onPost={onPost}
-        onReset={onReset}
+        {...resourceProps}
       />
     );
   };
