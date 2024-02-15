@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 
 const app = express();
 
@@ -62,13 +62,11 @@ let books = [
   },
 ];
 
-app.get("/", (req, res) => res.json(currentUser));
-
 app.get("/current-user", (req, res) => res.json(currentUser));
 
 app.get("/users/:id", (req, res) => {
   const { id } = req.params;
-  console.log(id)
+  console.log(id);
   res.json(users.find((user) => user.id === id));
 });
 

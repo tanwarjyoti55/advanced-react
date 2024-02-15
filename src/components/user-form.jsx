@@ -31,5 +31,5 @@ import { includeUpdatableUser } from "./include-updatable-user";
     );
   },
   // "3"
-  '/users/2','user'
+  'http://localhost:9090/users/2','user'
 );
