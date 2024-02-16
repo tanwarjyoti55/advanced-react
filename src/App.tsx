@@ -17,13 +17,16 @@ export const fetchRandomBook = async () => {
 };
 
 export const fetchBook = async (count: number) => {
-  const response = await axios.get(`http://localhost:5000/api/books?limit=${count}`);
+  const response = await axios.get(
+    `http://localhost:5000/api/books?limit=${count}`
+  );
   return response.data;
 };
 
 function App() {
   // const [book, setBook] = useState<Book | undefined>();
   const [books, setBooks] = useState<Book[]>([]);
+  const [count, setCount] = useState(10);
 
   // useEffect(() => {
   //   fetchRandomBook().then(setBook);
@@ -35,10 +38,14 @@ function App() {
   return (
     <main className="w-full max-w-2xl py-16 mx-auto">
       {/* <Book title={book.title} author={book.author} /> */}
-      <Books>
-      {books.map((book)=>{
-        return <Book title={book.title} author={book.author} />
-      })}
+      <Books
+        count={count}
+        onChange={(e) => setCount(e.target.valueAsNumber)}
+        onSubmit={() => fetchBook(count).then(setBooks)}
+      >
+        {books.map((book) => {
+          return <Book title={book.title} author={book.author} />;
+        })}
       </Books>
     </main>
   );
