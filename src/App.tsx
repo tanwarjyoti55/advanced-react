@@ -22,17 +22,24 @@ export const fetchBook = async (count: number) => {
 };
 
 function App() {
-  const [book, setBook] = useState<Book | undefined>();
+  // const [book, setBook] = useState<Book | undefined>();
+  const [books, setBooks] = useState<Book[]>([]);
 
-  useEffect(() => {
-    fetchRandomBook().then(setBook);
-  }, []);
+  // useEffect(() => {
+  //   fetchRandomBook().then(setBook);
+  // }, []);
 
-  if (!book) return <Loader />;
+  // if (!book) return <Loader />;
+  if (!books) return <Loader />;
 
   return (
     <main className="w-full max-w-2xl py-16 mx-auto">
-      <Book title={book.title} author={book.author} />
+      {/* <Book title={book.title} author={book.author} /> */}
+      <Books>
+      {books.map((book)=>{
+        return <Book title={book.title} author={book.author} />
+      })}
+      </Books>
     </main>
   );
 }
