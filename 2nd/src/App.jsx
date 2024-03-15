@@ -1,9 +1,9 @@
-import Users from "./components/users";
+import TrackMouse from "./components/track-mouse";
 
 function App() {
   return (
     <>
-      <Users />
+      <TrackMouse />
     </>
   );
 }

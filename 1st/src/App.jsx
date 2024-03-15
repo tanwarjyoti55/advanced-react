@@ -1,9 +1,10 @@
-import Users from "./components/users";
+import Ingredients from "./components/ingredients";
+import IngredientsInfoHelper from "./components/ingredients-info-helper";
 
 function App() {
   return (
     <>
-      <Users />
+      <Ingredients ingredientsHeaderText={<IngredientsInfoHelper />} />
     </>
   );
 }
