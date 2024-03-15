@@ -1,33 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { fetchUser } from "../api/userApi";
+import React, { useEffect } from "react";
+import { fetchUsers } from "../api/usersApi";
 import styled from "styled-components";
-import { withAsync } from "../helpers/with-async";
-import { apiStatus } from "../constants/api-status";
-import { useApiStatus } from "../api/hooks/useApiStatus";
 import LazyLoader from "./lazy-loader";
+import { useApi } from "../api/hooks/useApi";
 
 const useFetchUsers = () => {
-  const [users, setUsers] = useState([]);
-
   const {
+    data: users,
+    exec: initFetchUsers,
     status: fetchUsersStatus,
-    setStatus: setFetchUsersStatus,
     isIdle: isFetchUsersStatusIdle,
     isPending: isFetchUsersStatusPending,
     isError: isFetchUsersStatusError,
     isSuccess: isFetchUsersStatusSuccess,
-  } = useApiStatus(apiStatus.IDLE);
+  } = useApi(() => fetchUsers().then((response) => response.data));
 
-  const initFetchUsers = async () => {
-    setFetchUsersStatus(apiStatus.PENDING);
-    const { response, error } = await withAsync(() => fetchUser());
-    if (error) {
-      setFetchUsersStatus(apiStatus.ERROR);
-    } else if (response) {
-      setUsers(response);
-      setFetchUsersStatus(apiStatus.SUCCESS);
-    }
-  };
   return {
     users,
     isFetchUsersStatusIdle,
@@ -70,14 +57,14 @@ const FetchButton = styled.button`
   padding: 1rem;
 `;
 
-function Users() {
+const Users = () => {
   const {
     users,
-    initFetchUsers,
+    isFetchUsersStatusError,
     isFetchUsersStatusIdle,
     isFetchUsersStatusPending,
     isFetchUsersStatusSuccess,
-    isFetchUsersStatusError,
+    initFetchUsers,
   } = useFetchUsers();
 
   useEffect(() => {
@@ -95,8 +82,7 @@ function Users() {
       </FetchButton>
       <FlexContainer>
         <ContentContainer>
-          {isFetchUsersStatusIdle ? <p>Welcome</p> : null}
-          {isFetchUsersStatusSuccess
+          {users
             ? users.map((user, index) => (
                 <React.Fragment key={index}>
                   <UserName>{user.name}</UserName>
@@ -108,5 +94,6 @@ function Users() {
       </FlexContainer>
     </Container>
   );
-}
+};
+
 export default Users;
